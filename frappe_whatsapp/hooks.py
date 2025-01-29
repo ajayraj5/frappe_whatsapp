@@ -102,13 +102,7 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-#   "*": {
-#       "on_update": "method",
-#       "on_cancel": "method",
-#       "on_trash": "method"
-#   }
-# }
+
 
 # Scheduled Tasks
 # ---------------
@@ -202,5 +196,8 @@ doc_events = {
         "after_delete": "frappe_whatsapp.utils.run_server_script_for_doc_event",
         "before_update_after_submit": "frappe_whatsapp.utils.run_server_script_for_doc_event",
         "on_update_after_submit": "frappe_whatsapp.utils.run_server_script_for_doc_event"
+    },
+    "User": {
+      "validate": "frappe_whatsapp.utils.actions.user_number_validation",
     }
 }

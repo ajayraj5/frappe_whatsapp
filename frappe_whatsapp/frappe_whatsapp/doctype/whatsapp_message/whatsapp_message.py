@@ -11,6 +11,7 @@ class WhatsAppMessage(Document):
 
     def before_insert(self):
         """Send message."""
+
         if self.type == "Outgoing" and self.message_type != "Template":
             if self.attach and not self.attach.startswith("http"):
                 link = frappe.utils.get_url() + "/" + self.attach
@@ -39,7 +40,9 @@ class WhatsAppMessage(Document):
 
             elif self.content_type == "audio":
                 data["text"] = {"link": link}
-
+                
+            elif self.content_type == "interactive":
+                data["interactive"] = self.data['interactive']
             try:
                 self.notify(data)
                 self.status = "Success"
